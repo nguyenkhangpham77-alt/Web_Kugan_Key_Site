@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090b14">
+<meta name="description" content="Blox Fruits Script Hub — script, hướng dẫn và key 1 ngày.">
+<title>Blox Fruits — Script Hub</title>
+<style>
+  :root {
+    --bg: #080a12;
+    --panel: rgba(17, 21, 36, .82);
+    --panel-strong: #111526;
+    --line: rgba(164, 177, 255, .16);
+    --text: #f5f6ff;
+    --muted: #9ba5c4;
+    --purple: #8b5cf6;
+    --blue: #5b8cff;
+    --cyan: #61e7e0;
+    --green: #5ee6b1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    min-height: 180vh;
+    color: var(--text);
+    background:
+      radial-gradient(ellipse at 14% 4%, rgba(91,140,255,.19), transparent 34rem),
+      radial-gradient(ellipse at 86% 16%, rgba(139,92,246,.17), transparent 32rem),
+      linear-gradient(180deg, #080a12 0%, #0b0d18 52%, #080a12 100%);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .19; z-index: -1;
+    background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, black, transparent 85%);
+  }
+  a { color: inherit; }
+  .nav {
+    position: fixed; inset: 0 0 auto; z-index: 20; height: 72px; padding: 0 clamp(16px, 4vw, 48px);
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(8,10,18,.76); border-bottom: 1px solid rgba(164,177,255,.12);
+    backdrop-filter: blur(18px);
+  }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 9px; text-decoration: none;
+    color: #e5e9ff; font-size: 13px; font-weight: 700;
+    border: 1px solid var(--line); border-radius: 12px; padding: 10px 13px;
+    background: rgba(255,255,255,.035); transition: .2s;
+  }
+  .back-btn:hover { border-color: rgba(139,92,246,.65); background: rgba(139,92,246,.12); }
+  .brand { display: flex; align-items: center; gap: 11px; font-weight: 850; letter-spacing: -.3px; }
+  .brand-mark {
+    width: 35px; height: 35px; display: grid; place-items: center; border-radius: 11px;
+    background: linear-gradient(135deg, var(--blue), var(--purple)); box-shadow: 0 5px 24px #785cf64d;
+    font-size: 17px;
+  }
+  .brand small { display: block; color: var(--muted); font-size: 10px; letter-spacing: 1.6px; margin-top: 2px; }
+  .nav-status { color: #b7f8dc; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px #5ee6b1; }
+  main { width: min(100% - 32px, 900px); margin: 0 auto; }
+  .hero { text-align: center; padding: 150px 12px 46px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px;
+    border: 1px solid rgba(139,92,246,.28); border-radius: 999px;
+    background: rgba(139,92,246,.09); color: #c8b9ff; font-size: 11px;
+    font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase;
+  }
+  .hero h1 {
+    margin: 23px auto 15px; max-width: 760px; font-size: clamp(38px, 7vw, 68px);
+    line-height: 1.02; letter-spacing: -2.7px; font-weight: 900;
+  }
+  .gradient-text {
+    background: linear-gradient(100deg, #fff 8%, #b8c8ff 42%, #c4a5ff 74%, #7debe4);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p { max-width: 570px; margin: 0 auto; color: var(--muted); line-height: 1.8; font-size: 15px; }
+  .hero-tags { margin-top: 24px; display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; }
+  .tag { border: 1px solid var(--line); background: rgba(255,255,255,.035); color: #c6cce2; border-radius: 9px; padding: 7px 10px; font-size: 11px; }
+  .panel {
+    position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 23px;
+    background: linear-gradient(145deg, rgba(20,25,44,.94), rgba(13,16,29,.91));
+    box-shadow: 0 24px 80px rgba(0,0,0,.28); padding: clamp(21px, 4vw, 34px);
+  }
+  .panel::before {
+    content: ""; position: absolute; width: 220px; height: 220px; top: -150px; right: -70px;
+    border-radius: 50%; background: rgba(111,105,255,.16); filter: blur(8px); pointer-events: none;
+  }
+  .panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 23px; position: relative; }
+  .panel-kicker { color: #9d9fff; font-size: 10px; font-weight: 850; letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 9px; }
+  h2 { font-size: clamp(20px, 4vw, 25px); letter-spacing: -.6px; }
+  .panel-desc { color: var(--muted); font-size: 13px; line-height: 1.65; margin-top: 8px; }
+  .icon-box { flex: 0 0 48px; height: 48px; display: grid; place-items: center; border: 1px solid rgba(139,92,246,.32); border-radius: 15px; background: rgba(139,92,246,.12); font-size: 23px; }
+  .btn {
+    min-height: 49px; border: 1px solid transparent; border-radius: 13px; padding: 13px 19px;
+    display: inline-flex; justify-content: center; align-items: center; gap: 10px;
+    color: white; font-size: 14px; font-weight: 800; text-decoration: none; cursor: pointer;
+    transition: transform .18s, box-shadow .18s, filter .18s; font-family: inherit;
+  }
+  .btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
+  .btn:active { transform: translateY(0); }
+  .btn-primary { background: linear-gradient(105deg, #5b82ff, #8958f6 62%, #a15cf3); box-shadow: 0 9px 26px rgba(111,91,246,.23); }
+  .btn-primary:hover { box-shadow: 0 12px 32px rgba(111,91,246,.37); }
+  .btn-secondary { background: rgba(255,255,255,.055); border-color: var(--line); color: #e7eaff; }
+  .btn-full { width: 100%; }
+  #scriptBox { display: none; margin-top: 17px; padding: 17px; border: 1px solid rgba(94,230,177,.2); border-radius: 15px; background: rgba(5,9,16,.72); }
+  #scriptBox.show { display: block; animation: reveal .22s ease-out; }
+  @keyframes reveal { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+  .code-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; color: #8f9aba; font-size: 10px; font-weight: 800; letter-spacing: 1.4px; }
+  .code-lights { display: flex; gap: 5px; }
+  .code-lights i { width: 7px; height: 7px; display: block; border-radius: 50%; background: #ff7373; }
+  .code-lights i:nth-child(2) { background: #ffc86b; } .code-lights i:nth-child(3) { background: #5ee6b1; }
+  #scriptText { display: block; color: #a7f3ce; font: 12px/1.8 ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap: anywhere; user-select: all; }
+  .code-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 16px; }
+  .copy-btn { min-height: 39px; padding: 9px 13px; font-size: 12px; border-radius: 10px; }
+  #copyStatus { color: var(--muted); font-size: 12px; }
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; margin: 18px 0 0; }
+  .feature { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.025); }
+  .feature-icon { font-size: 19px; margin-bottom: 12px; }
+  .feature h3 { font-size: 13px; margin-bottom: 7px; }
+  .feature p { color: var(--muted); font-size: 12px; line-height: 1.6; }
+  .instructions { margin-top: 18px; }
+  .steps { display: grid; gap: 16px; margin-top: 23px; }
+  .step { display: flex; gap: 14px; align-items: flex-start; }
+  .step-num { flex: 0 0 30px; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; color: #d8d2ff; font-size: 12px; font-weight: 850; border: 1px solid rgba(139,92,246,.3); background: rgba(139,92,246,.12); }
+  .step h3 { font-size: 13px; margin: 2px 0 5px; }
+  .step p { color: var(--muted); font-size: 12px; line-height: 1.65; }
+  .key-panel { margin: 18px 0 90px; text-align: center; padding: clamp(24px, 5vw, 42px); }
+  .key-symbol { width: 58px; height: 58px; margin: 0 auto 17px; display: grid; place-items: center; border-radius: 18px; font-size: 27px; background: rgba(94,230,177,.1); border: 1px solid rgba(94,230,177,.25); }
+  .key-panel .panel-desc { max-width: 460px; margin: 10px auto 23px; }
+  .key-btn {
+    position: fixed; right: 20px; bottom: 20px; z-index: 30;
+    opacity: 0; transform: translateY(15px); pointer-events: none;
+    border: 1px solid rgba(255,255,255,.2);
+    background: linear-gradient(105deg, #13a982, #14b8a6);
+    box-shadow: 0 10px 30px rgba(20,184,166,.28);
+    border-radius: 14px; padding: 14px 18px; min-height: 50px;
+  }
+  .key-btn.visible { opacity: 1; transform: none; pointer-events: auto; }
+  footer { text-align: center; padding: 25px 16px 38px; color: #737e9e; border-top: 1px solid rgba(164,177,255,.09); font-size: 11px; }
+  footer strong { color: #b7bfd9; }
+
+  /* Premium detail layer */
+  body { isolation: isolate; }
+  body::after {
+    content: ""; position: fixed; inset: auto -12vw -28vw auto; width: 54vw; height: 54vw;
+    min-width: 320px; min-height: 320px; border-radius: 50%; pointer-events: none; z-index: -1;
+    background: radial-gradient(circle, rgba(72, 104, 255, .10), transparent 68%);
+    filter: blur(10px);
+  }
+  .reading-progress {
+    position: fixed; top: 0; left: 0; z-index: 50; height: 2px; width: 0;
+    background: linear-gradient(90deg, #5b8cff, #9b6bff, #61e7e0);
+    box-shadow: 0 0 12px rgba(139,92,246,.42);
+  }
+  .nav { box-shadow: 0 8px 32px rgba(0,0,0,.12); }
+  .brand-mark { position: relative; isolation: isolate; }
+  .brand-mark::after {
+    content: ""; position: absolute; inset: -4px; border: 1px solid rgba(139,92,246,.24);
+    border-radius: 14px; animation: markPulse 3.4s ease-in-out infinite; z-index: -1;
+  }
+  @keyframes markPulse { 0%,100% { transform: scale(.96); opacity: .35; } 50% { transform: scale(1.12); opacity: .9; } }
+  .hero { position: relative; }
+  .hero::before {
+    content: ""; display: block; width: 1px; height: 40px; margin: 0 auto 18px;
+    background: linear-gradient(transparent, rgba(139,92,246,.75), transparent);
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px;
+    margin-top: 28px; color: #7884a6; font-size: 10px; font-weight: 650; letter-spacing: .35px;
+  }
+  .hero-meta span:first-child { display: inline-flex; align-items: center; gap: 7px; }
+  .hero-meta i { width: 6px; height: 6px; display: inline-block; border-radius: 50%; background: #61e7e0; box-shadow: 0 0 10px #61e7e0; }
+  .hero-meta strong { color: #c4b5fd; font-weight: 800; }
+  .meta-separator { color: #39415e; }
+  .hero h1 { text-wrap: balance; }
+  .hero p { text-wrap: pretty; }
+  .hero-tags .tag { transition: border-color .2s, background .2s, transform .2s; }
+  .hero-tags .tag:hover { transform: translateY(-2px); border-color: rgba(139,92,246,.42); background: rgba(139,92,246,.08); }
+  .panel { box-shadow: 0 24px 80px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.025); }
+  .panel::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+    background: linear-gradient(135deg, rgba(139,92,246,.20), transparent 35%, rgba(91,140,255,.08) 75%, transparent);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+  }
+  .section-label {
+    display: flex; align-items: center; gap: 12px; margin: 0 0 13px;
+    color: #8490b6; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  }
+  .section-label::after { content: ""; height: 1px; flex: 1; background: linear-gradient(90deg, var(--line), transparent); }
+  .features { position: relative; }
+  .feature { position: relative; overflow: hidden; transition: transform .22s, border-color .22s, background .22s; }
+  .feature::after {
+    content: ""; position: absolute; width: 80px; height: 80px; right: -36px; bottom: -43px;
+    border-radius: 50%; background: rgba(91,140,255,.08); filter: blur(3px); transition: transform .25s;
+  }
+  .feature:hover { transform: translateY(-4px); border-color: rgba(139,92,246,.38); background: rgba(255,255,255,.045); }
+  .feature:hover::after { transform: scale(1.5); }
+  .feature-icon {
+    width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px;
+    border: 1px solid rgba(139,92,246,.18); background: rgba(139,92,246,.09);
+  }
+  .feature h3 { letter-spacing: -.15px; }
+  .steps { position: relative; }
+  .steps::before {
+    content: ""; position: absolute; top: 15px; bottom: 15px; left: 14px; width: 1px;
+    background: linear-gradient(rgba(139,92,246,.45), rgba(91,140,255,.12), transparent);
+  }
+  .step { position: relative; }
+  .step-num { position: relative; z-index: 1; box-shadow: 0 0 0 5px #101426; }
+  .key-panel { background: radial-gradient(ellipse at 50% 0%, rgba(94,230,177,.07), transparent 58%), linear-gradient(145deg, rgba(20,25,44,.96), rgba(13,16,29,.94)); }
+  .key-symbol { box-shadow: 0 0 36px rgba(94,230,177,.08); }
+  .key-panel .btn { min-width: min(100%, 250px); }
+  .key-btn { transition: opacity .25s, transform .25s, box-shadow .2s, filter .2s; }
+  .key-btn.visible { animation: floatIn .3s ease-out; }
+  @keyframes floatIn { from { transform: translateY(12px); } to { transform: translateY(0); } }
+  .key-btn:hover { box-shadow: 0 14px 38px rgba(20,184,166,.4); }
+  .nav-status { padding: 8px 11px; border: 1px solid rgba(94,230,177,.13); border-radius: 999px; background: rgba(94,230,177,.045); }
+  .dot { animation: statusPulse 2s ease-in-out infinite; }
+  @keyframes statusPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(94,230,177,.25), 0 0 12px #5ee6b1; } 50% { box-shadow: 0 0 0 5px rgba(94,230,177,0), 0 0 16px #5ee6b1; } }
+  .code-top { padding-bottom: 10px; border-bottom: 1px solid rgba(164,177,255,.10); }
+  #scriptText { padding: 5px 0; }
+  .copy-btn { transition: border-color .2s, background .2s, transform .2s; }
+  .copy-btn:hover { border-color: rgba(94,230,177,.3); background: rgba(94,230,177,.07); }
+  .contact-note {
+    display: flex; align-items: flex-start; gap: 10px; margin-top: 15px; padding: 13px 14px;
+    border: 1px solid rgba(139,92,246,.20); border-radius: 12px;
+    background: linear-gradient(100deg, rgba(139,92,246,.08), rgba(91,140,255,.035));
+    color: #aab4d3; font-size: 12px; line-height: 1.7;
+  }
+  .contact-note .note-icon {
+    flex: 0 0 25px; width: 25px; height: 25px; display: grid; place-items: center;
+    border-radius: 8px; color: #c4b5fd; background: rgba(139,92,246,.15);
+  }
+  .contact-note strong { color: #f1edff; }
+  .social-section { margin: 0 0 30px; }
+  .social-panel {
+    position: relative; overflow: hidden; padding: clamp(22px, 4vw, 32px);
+    border: 1px solid var(--line); border-radius: 22px;
+    background: linear-gradient(145deg, rgba(20,25,44,.88), rgba(13,16,29,.88));
+    box-shadow: 0 20px 60px rgba(0,0,0,.18);
+  }
+  .social-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 15px; margin-bottom: 20px; }
+  .social-head h2 { font-size: clamp(19px, 4vw, 24px); }
+  .social-head p { margin-top: 7px; max-width: 470px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+  .social-grid { display: grid; grid-template-columns: 1fr; gap: 11px; }
+  .social-grid-reference { gap: 14px; }
+  .social-grid-reference .social-card {
+    min-height: 82px; padding: 15px 18px; border-radius: 16px;
+    border: 1px solid rgba(255,255,255,.13);
+    background: linear-gradient(100deg, #667bff 0%, #9860ff 52%, #b34ff4 100%);
+    box-shadow: 0 12px 30px rgba(124,92,255,.24);
+    color: #fff;
+  }
+  .social-grid-reference .social-card.youtube { background: linear-gradient(100deg,#647cff,#a653ff); }
+  .social-grid-reference .social-card.discord { background: linear-gradient(100deg,#5865f2,#9270ff); }
+  .social-grid-reference .social-card.tiktok { background: linear-gradient(100deg,#596dff,#bd4df2); }
+  .social-grid-reference .social-card:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 16px 34px rgba(124,92,255,.32); }
+  .social-grid-reference .social-icon {
+    width: 46px; height: 46px; flex-basis: 46px; border-radius: 12px;
+    background: rgba(25,22,65,.24); border: 1px solid rgba(255,255,255,.2);
+    box-shadow: none; font-size: 22px;
+  }
+  .social-grid-reference .social-card h3 { font-size: 15px; margin-bottom: 5px; }
+  .social-grid-reference .social-card p { color: rgba(255,255,255,.82); font-size: 11px; }
+  .social-grid-reference .copy-social-link {
+    color: #fff; font-family: inherit; cursor: pointer;
+    transition: background .18s ease, transform .18s ease;
+  }
+  .social-grid-reference .copy-social-link:hover { background: rgba(255,255,255,.2); transform: translateY(-1px); }
+  .social-grid-reference .copy-social-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .social-grid-reference .social-action {
+    background: rgba(21,18,55,.2); border: 1px solid rgba(255,255,255,.23);
+    border-radius: 10px; padding: 10px 12px; font-size: 10px; white-space: nowrap;
+  }
+
+  /* Blox Fruits script-hub style: bold platform buttons with icon, description and arrow */
+  .social-card {
+    --social: #9b8cff; position: relative; display: flex; align-items: center; gap: 14px;
+    min-width: 0; min-height: 72px; padding: 13px 16px;
+    border: 1px solid color-mix(in srgb, var(--social) 45%, transparent);
+    border-radius: 13px; color: #fff; text-decoration: none;
+    background: linear-gradient(100deg, color-mix(in srgb, var(--social) 18%, #111522), rgba(20,24,38,.96) 72%);
+    box-shadow: inset 4px 0 0 var(--social), 0 7px 18px rgba(0,0,0,.15);
+    transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, filter .18s ease;
+  }
+  .social-card:hover {
+    transform: translateY(-2px); filter: brightness(1.12);
+    border-color: var(--social);
+    box-shadow: inset 4px 0 0 var(--social), 0 10px 24px color-mix(in srgb, var(--social) 16%, transparent);
+  }
+  .social-card:active { transform: scale(.99); }
+  .social-card.youtube { --social: #ff3548; }
+  .social-card.discord { --social: #5865f2; }
+  .social-card.tiktok { --social: #25e4d2; }
+  .social-icon {
+    display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 44px;
+    border: 1px solid color-mix(in srgb, var(--social) 60%, transparent);
+    border-radius: 10px; background: var(--social); color: #fff;
+    font-size: 21px; font-weight: 900; box-shadow: 0 4px 12px color-mix(in srgb, var(--social) 24%, transparent);
+  }
+  .social-copy { min-width: 0; flex: 1; }
+  .social-card h3 { font-size: 14px; font-weight: 850; margin-bottom: 4px; letter-spacing: .2px; }
+  .social-card p { color: #aeb8d2; font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
+  .social-action {
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    flex: 0 0 auto; padding: 9px 12px; border-radius: 8px;
+    background: var(--social); color: #fff; font-size: 10px; font-weight: 900; letter-spacing: .45px;
+  }
+  .social-open { display: none; }
+  @media (max-width: 620px) {
+    .social-grid { grid-template-columns: 1fr; gap: 9px; }
+    .social-card { gap: 11px; min-height: 68px; padding: 11px 12px; }
+    .social-icon { width: 40px; height: 40px; flex-basis: 40px; }
+    .social-action { padding: 8px 9px; font-size: 9px; }
+    .social-head { align-items: flex-start; }
+    .contact-note { font-size: 11px; }
+  }
+  .divider-glow { height: 1px; margin: 26px 0; background: linear-gradient(90deg, transparent, rgba(139,92,246,.32), rgba(91,140,255,.22), transparent); }
+  .footer-mark { display: inline-flex; align-items: center; gap: 7px; }
+  .footer-mark::before { content: "✦"; color: #a99aff; }
+  @media (max-width: 620px) {
+    .hero::before { height: 28px; margin-bottom: 14px; }
+    .feature-icon { flex: 0 0 40px; }
+    .nav-status { padding: 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .brand-mark::after, .dot, .key-btn.visible { animation: none !important; }
+  }
+  @media (max-width: 620px) {
+    .nav { height: 64px; padding: 0 12px; }
+    .back-btn { padding: 9px 10px; font-size: 12px; }
+    .brand { font-size: 13px; gap: 8px; }
+    .brand-mark { width: 31px; height: 31px; }
+    .nav-status { font-size: 0; gap: 0; }
+    .hero { padding-top: 125px; }
+    .hero h1 { letter-spacing: -1.6px; }
+    .features { grid-template-columns: 1fr; }
+    .feature { display: flex; gap: 12px; align-items: flex-start; }
+    .feature-icon { margin: 0; }
+    .key-btn { right: 12px; bottom: 12px; padding: 13px 15px; font-size: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+<nav class="nav">
+  <a href="/" class="back-btn" id="homeBtn"><span aria-hidden="true">←</span> Trang chủ</a>
+  <div class="brand"><span class="brand-mark">✦</span><span>IZARRY HUB<small>SCRIPT CENTER</small></span></div>
+  <div class="nav-status"><span class="dot"></span> ONLINE</div>
+</nav>
+
+<main>
+  <header class="hero">
+    <div class="eyebrow"><span>✦</span> BLOX FRUITS · SCRIPT HUB</div>
+    <h1><span class="gradient-text">Your next adventure</span><br>starts here.</h1>
+    <p>Truy cập script nhanh chóng với giao diện gọn gàng, hướng dẫn rõ ràng và mục lấy key được đặt sẵn bên dưới.</p>
+    <div class="hero-tags"><span class="tag">◈ Simple setup</span><span class="tag">◈ Quick access</span><span class="tag">◈ Mobile friendly</span></div>
+    <div class="hero-meta" aria-label="Thông tin giao diện">
+      <span><i></i> Thiết kế tối ưu cho mobile</span>
+      <span class="meta-separator">/</span>
+      <span>UI <strong>v2.0</strong></span>
+      <span class="meta-separator">/</span>
+      <span>Dark interface</span>
+    </div>
+  </header>
+
+  <div class="section-label"><span>01 — Tài nguyên</span></div>
+  <section class="panel" aria-labelledby="scriptHeading">
+    <div class="panel-head">
+      <div>
+        <div class="panel-kicker">SCRIPT ACCESS / 01</div>
+        <h2 id="scriptHeading">Script Blox Fruits</h2>
+        <p class="panel-desc">Nhấn nút để hiển thị đoạn mã. Bạn có thể sao chép trực tiếp từ khung bên dưới.</p>
+      </div>
+      <div class="icon-box" aria-hidden="true">⌘</div>
+    </div>
+    <button class="btn btn-primary btn-full" id="scriptBtn" type="button"><span>〈 / 〉</span> Script Blox Fruits <span aria-hidden="true">↗</span></button>
+    <div id="scriptBox" aria-live="polite">
+      <div class="code-top"><span>SCRIPT.LUA</span><span class="code-lights"><i></i><i></i><i></i></span></div>
+      <code id="scriptText">loadstring(game:HttpGet("https://raw.githubusercontent.com/nguyenkhangpham77-alt/Izarryeuem/refs/heads/main/obfuscated.lua.txt"))()</code>
+      <div class="code-actions">
+        <button class="btn btn-secondary copy-btn" id="copyBtn" type="button">▣ Sao chép mã</button>
+        <span id="copyStatus" role="status"></span>
+      </div>
+      <div class="contact-note">
+        <span class="note-icon" aria-hidden="true">✦</span>
+        <span><strong>Mua key thời hạn ngày / Vĩnh viễn?</strong><br>Liên hệ qua TikTok để được tư vấn và nhận thông tin.</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-glow" aria-hidden="true"></div>
+  <div class="section-label"><span>02 — Điểm nổi bật</span></div>
+  <section class="features" aria-label="Thông tin">
+    <article class="feature"><div class="feature-icon">⚡</div><div><h3>Truy cập nhanh</h3><p>Mở script và sao chép mã ngay trên trang.</p></div></article>
+    <article class="feature"><div class="feature-icon">⌁</div><div><h3>Giao diện tối</h3><p>Bố cục hiện đại, dễ nhìn trên điện thoại và máy tính.</p></div></article>
+    <article class="feature"><div class="feature-icon">♧</div><div><h3>Key 1 ngày</h3><p>Nút lấy key được bố trí riêng để dễ tìm.</p></div></article>
+  </section>
+
+  <div class="divider-glow" aria-hidden="true"></div>
+  <div class="section-label"><span>03 — Kết nối cộng đồng</span></div>
+  <section class="social-section" aria-labelledby="socialHeading">
+    <div class="social-panel">
+      <div class="social-head">
+        <div>
+          <div class="panel-kicker">SOCIAL LINKS / CONNECT</div>
+          <h2 id="socialHeading">Theo dõi &amp; liên hệ</h2>
+          <p>Tham gia cộng đồng và theo dõi kênh để cập nhật script, thông báo và hỗ trợ.</p>
+        </div>
+      </div>
+      <div class="social-grid social-grid-reference">
+      <div class="social-card youtube">
+        <span class="social-icon" aria-hidden="true">▶</span>
+        <span class="social-copy"><h3>YouTube</h3><p>Theo dõi kênh để xem script và cập nhật mới.</p></span>
+        <button class="social-action copy-social-link" type="button" data-copy-link="https://www.youtube.com/@Kuganoffcial231" aria-label="Sao chép link YouTube">▣ Sao chép link</button>
+      </div>
+      <div class="social-card discord">
+        <span class="social-icon" aria-hidden="true">◉</span>
+        <span class="social-copy"><h3>Discord</h3><p>Tham gia server để nhận hỗ trợ và thông báo.</p></span>
+        <button class="social-action copy-social-link" type="button" data-copy-link="https://discord.gg/uhY7ugFpP" aria-label="Sao chép link Discord">▣ Sao chép link</button>
+      </div>
+      <div class="social-card tiktok">
+        <span class="social-icon" aria-hidden="true">♪</span>
+        <span class="social-copy"><h3>TikTok</h3><p>Liên hệ để được tư vấn về key ngày hoặc vĩnh viễn.</p></span>
+        <button class="social-action copy-social-link" type="button" data-copy-link="https://www.tiktok.com/@user_8171946927?_r=1&_t=ZS-9AUlOvNaXBf" aria-label="Sao chép link TikTok">▣ Sao chép link</button>
+      </div>
+    </div>
+    </section>
+
+  <div class="divider-glow" aria-hidden="true"></div>
+  <div class="section-label"><span>04 — Bắt đầu sử dụng</span></div>
+  <section class="panel instructions">
+    <div class="panel-kicker">QUICK GUIDE / 04</div>
+    <h2>Hướng dẫn sử dụng</h2>
+    <p class="panel-desc">Làm theo các bước bên dưới để tìm script và trang lấy key.</p>
+    <div class="steps">
+      <div class="step"><span class="step-num">01</span><div><h3>Hiện script</h3><p>Nhấn nút “Script Blox Fruits” để mở khung mã.</p></div></div>
+      <div class="step"><span class="step-num">02</span><div><h3>Sao chép mã</h3><p>Nhấn “Sao chép mã”. Nếu trình duyệt chặn clipboard, hãy chọn và sao chép mã thủ công.</p></div></div>
+      <div class="step"><span class="step-num">03</span><div><h3>Lấy key 1 ngày</h3><p>Cuộn xuống cuối trang hoặc nhấn nút nổi ở góc dưới bên phải để mở trang Get Key.</p></div></div>
+    </div>
+  </section>
+
+  <div class="divider-glow" aria-hidden="true"></div>
+  <div class="section-label"><span>05 — Quyền truy cập</span></div>
+  <section class="panel key-panel" id="getKeySection">
+    <div class="key-symbol" aria-hidden="true">⚿</div>
+    <div class="panel-kicker">KEY ACCESS / 05</div>
+    <h2>Get Key <span class="gradient-text">/ Key 1 ngày</span></h2>
+    <p class="panel-desc">Mở trang lấy key trong tab mới. Hãy làm theo hướng dẫn hiển thị trên trang đích.</p>
+    <a class="btn btn-primary" href="https://vxezestudio.online/key/key_b7cfd31da97e6c19" target="_blank" rel="noopener noreferrer">🔑 Get Key / Key 1 ngày <span aria-hidden="true">↗</span></a>
+  </section>
+</main>
+
+<a class="btn key-btn" id="keyBtn" href="https://vxezestudio.online/key/key_b7cfd31da97e6c19" target="_blank" rel="noopener noreferrer">🔑 Get Key / Key 1 ngày <span aria-hidden="true">↗</span></a>
+
+<footer><strong>IZARRY HUB</strong> · Blox Fruits Script Center<br><span style="display:inline-block;margin-top:7px">Dùng script có trách nhiệm và tự kiểm tra nguồn trước khi chạy.</span></footer>
+
+<script>
+  const box = document.getElementById('scriptBox');
+  const scriptBtn = document.getElementById('scriptBtn');
+  const keyBtn = document.getElementById('keyBtn');
+  const copyBtn = document.getElementById('copyBtn');
+  const copyStatus = document.getElementById('copyStatus');
+  const readingProgress = document.getElementById('readingProgress');
+
+  const updateProgress = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+    readingProgress.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+  };
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  scriptBtn.addEventListener('click', () => {
+    const opened = box.classList.toggle('show');
+    scriptBtn.setAttribute('aria-expanded', String(opened));
+    scriptBtn.innerHTML = opened
+      ? '<span>〈 / 〉</span> Ẩn script <span aria-hidden="true">↑</span>'
+      : '<span>〈 / 〉</span> Script Blox Fruits <span aria-hidden="true">↗</span>';
+  });
+
+  copyBtn.addEventListener('click', async () => {
+    const value = document.getElementById('scriptText').textContent;
+    try {
+      await navigator.clipboard.writeText(value);
+      copyBtn.textContent = '✓ Đã sao chép';
+      copyStatus.textContent = 'Mã đã được sao chép vào clipboard.';
+    } catch {
+      const range = document.createRange();
+      range.selectNodeContents(document.getElementById('scriptText'));
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      copyBtn.textContent = 'Đã chọn mã';
+      copyStatus.textContent = 'Nhấn giữ hoặc dùng Copy để sao chép đoạn đang chọn.';
+    }
+    window.setTimeout(() => { copyBtn.textContent = '▣ Sao chép mã'; }, 1800);
+  });
+
+  const onScroll = () => keyBtn.classList.toggle('visible', window.scrollY > 240);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+<script>
+document.querySelectorAll('.copy-social-link').forEach(function(button) {
+  button.addEventListener('click', async function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const url = button.getAttribute('data-copy-link');
+    const original = button.textContent;
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        const field = document.createElement('textarea');
+        field.value = url;
+        field.style.position = 'fixed';
+        field.style.opacity = '0';
+        document.body.appendChild(field);
+        field.select();
+        const copied = document.execCommand('copy');
+        field.remove();
+        if (!copied) throw new Error('copy failed');
+      }
+      button.textContent = '✓ Đã sao chép';
+      window.setTimeout(function() { button.textContent = original; }, 1600);
+    } catch (error) {
+      button.textContent = 'Không sao chép được';
+      window.setTimeout(function() { button.textContent = original; }, 1800);
+    }
+  });
+});
+</script>
+
+</body>
+</html>
